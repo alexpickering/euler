@@ -1,6 +1,5 @@
+from 3_largest_prime_factor import prime_generator
 
-def gen_primes():
-    
 
 
 def main():
