@@ -49,15 +49,11 @@ def vertical_transform(x, y):
 
 
 def backslash_diagonal_transform(x, y):
-    return [(x + i, y + 1) for i in range(4)]
+    return [(x + i, y + i) for i in range(4)]
 
 
 def forward_slash_diagonal_transform(x, y):
     return [(x - i, y + i) for i in range(4)]
-
-
-def line_to_vals(line):
-    return [val_at(xy) for xy in line]
 
 
 def iter_grid_coords():
@@ -77,7 +73,7 @@ def func():
         for transform in transforms:
             line = transform(*xy)
             if is_in_grid(line[-1]):
-                line_vals = line_to_vals(line)
+                line_vals = [val_at(xy) for xy in line]
                 if (new_max := prod(line_vals)) > cur_max:
                     cur_max = new_max
                     init_coords = xy
@@ -88,19 +84,13 @@ def func():
 
 
 def test_is_in_grid():
-    assert is_in_grid((3, 0)) == True
-    assert is_in_grid((8, 5)) == True
-    assert is_in_grid((22, 0)) == False
-    assert is_in_grid((22, 19)) == False
-
-    # 2
-    assert is_in_grid((3, 3)) == True
-
-    # 3
-    assert is_in_grid((0, 3)) == True
-
-    # 4
-    assert is_in_grid((-3, -3)) == False
+    assert is_in_grid((3, 0)) is True
+    assert is_in_grid((8, 5)) is True
+    assert is_in_grid((22, 0)) is False
+    assert is_in_grid((22, 19)) is False
+    assert is_in_grid((3, 3)) is True
+    assert is_in_grid((0, 3)) is True
+    assert is_in_grid((-3, -3)) is False
 
 
 def test_val_at():
